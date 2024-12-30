@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-function AuthModal({ setShowModal, setIsSignUp, isSignUp }) {
+function AuthModal({ setShowModal, isSignUp }) {
 
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
