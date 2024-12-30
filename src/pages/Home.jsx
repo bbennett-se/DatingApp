@@ -23,8 +23,7 @@ function Home() {
     <div className="overlay">
 
       <Nav 
-      minimal={false} 
-      authToken={authToken} 
+      minimal={false}  
       showModal = {showModal} 
       setShowModal = {setShowModal} 
       setIsSignUp = {setIsSignUp} />
