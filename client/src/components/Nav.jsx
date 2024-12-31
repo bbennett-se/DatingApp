@@ -9,7 +9,7 @@ function Nav({minimal, showModal, setShowModal, setIsSignUp}) {
     setIsSignUp(false)
   }
 
-  const authToken = true
+  const authToken = false
 
   return (
 
@@ -19,11 +19,11 @@ function Nav({minimal, showModal, setShowModal, setIsSignUp}) {
 
         </div>
 
-        {!authToken && !minimal && <button 
+        {!authToken && !minimal && (<button 
         className = "nav-button"
         onClick = {handleClick}
         disabled = {showModal}
-        >Log In</button>}
+        >Log In</button>)}
     </nav>
   )
 }

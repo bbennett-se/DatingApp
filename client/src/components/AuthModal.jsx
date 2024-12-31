@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useCookie } from 'react-cookie'
+import { useCookies } from 'react-cookie'
 
 function AuthModal({ setShowModal, isSignUp }) {
 
@@ -20,16 +20,16 @@ function AuthModal({ setShowModal, isSignUp }) {
         setShowModal(false)
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         try {
-            if(isSignUp && (password !== confirmPassword)) {
+            if (isSignUp && (password !== confirmPassword)) {
                 setError("Passwords must match")
                 return
             }
-            
-            const response = await axios.post('http://localhost:8000/signup', {email, password})
+
+            const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
 
             setCookie('Email', response.data.email)
             setCookie('UserId', response.data.userId)
@@ -37,14 +37,15 @@ function AuthModal({ setShowModal, isSignUp }) {
 
             const success = response.status === 201
 
-            if(success) navigate('/onboarding')
-            
-            } catch(error) {
-                console.log(error)
-            }
-        }
+            if (success && isSignUp) navigate('/onboarding')
+            if (success && !isSignUp) navigate('/dashboard')
 
-   
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
 
     return (
         <div className="auth-modal">
@@ -80,11 +81,11 @@ function AuthModal({ setShowModal, isSignUp }) {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />}
 
-                <input className = "secondary-button" type = "submit"/>
+                <input className="secondary-button" type="submit" />
                 <p>{error}</p>
 
             </form>
-            <hr/>
+            <hr />
             <h2>Get The App</h2>
         </div>
     )
