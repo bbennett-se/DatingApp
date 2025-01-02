@@ -138,6 +138,34 @@ app.get('/user', async (req,res) => {
 
 })
 
+app.get('/users', async(req,res) => {
+    const client = new MongoClient(URI)
+    const userIds = JSON.parse(req.query.userIds)
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.connection('users')
+
+        const pipeline = [
+            {
+                '$match': {
+                    'user_id': {
+                        '$in': userIds
+                    }
+                }
+            }
+        ]
+
+        const foundUsers = await users.aggregate(pipeline).toArray()
+        res.send(foundUsers)
+
+
+    } finally {
+        await client.close()
+    }
+})
+
 
 app.put('/user', async (req,res) => {
     const client = new MongoClient(URI)

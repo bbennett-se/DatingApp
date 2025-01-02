@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
-function MatchesDisplay({ matches }) {
+function MatchesDisplay({ matches, setClickedUser }) {
 
   const[matchedProfiles, setMatchedProfiles] = useState(null)
 
@@ -19,8 +19,20 @@ function MatchesDisplay({ matches }) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    getMatches()
+  }, [])
   return (
     <div className = 'matches-display'>
+      {matchProfiles?.map((match,_index) => (
+        <div key = {_index } className = 'match-card' onClick = {setClickedUser(match)}>
+          <div className = 'img-container'>
+            <img src = {match?.url} alt = {match?.first_name + ' profile'}/>
+            </div>
+            <h3>{match?.first_name}</h3>
+          </div>
+      ))}
       
     </div>
   )
