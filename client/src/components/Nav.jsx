@@ -2,14 +2,12 @@ import React from 'react'
 import whiteLogo from '../images/Wordmark-R-white-RGB-new.png'
 import colorLogo from '../images/Wordmark-R-gradient-RGB.png'
 
-function Nav({minimal, showModal, setShowModal, setIsSignUp}) {
+function Nav({authToken, minimal, showModal, setShowModal, setIsSignUp}) {
 
   const handleClick = () => {
     setShowModal(true)
     setIsSignUp(false)
   }
-
-  const authToken = false
 
   return (
 

@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react'
 function ChatDisplay({ user, clickedUser }) {
   const userId = user?.user_id
   const clickedUserId = clickedUser?.userId
-  const[usersMessages, setUsersMessages] = useState(null)
-  const[clickedUsersMessages, setClickedUsersMessages] = useState(null)
+  const [usersMessages, setUsersMessages] = useState(null)
+  const [clickedUsersMessages, setClickedUsersMessages] = useState(null)
 
-  const getUserMessages = async() => {
+  const getUserMessages = async () => {
     try {
       const response = await axios.get('http://localhost:8000/messages', {
         params: { userId: userId, correspondingUserId: clickedUserId }
@@ -23,7 +23,7 @@ function ChatDisplay({ user, clickedUser }) {
     }
   }
 
-  const getClickedUserMessages = async() => {
+  const getClickedUserMessages = async () => {
     try {
       const response = await axios.get('http://localhost:8000/messages', {
         params: { userId: clickedUserId, correspondingUserId: userId }
@@ -39,7 +39,7 @@ function ChatDisplay({ user, clickedUser }) {
 
   useEffect(() => {
     getUserMessages(userId, clickedUserId)
-    getClickedUserMessages(clickedUserId,userId)
+    getClickedUserMessages(clickedUserId, userId)
   }, [])
 
   const messages = []
@@ -62,12 +62,12 @@ function ChatDisplay({ user, clickedUser }) {
     messages.push(formattedMessage)
   })
 
-  const descendingOrderMessages = messages?.sort((a,b) => a.timestamp.localeCompare(b.timestamp))
+  const descendingOrderMessages = messages?.sort((a, b) => a.timestamp.localeCompare(b.timestamp))
 
   return (
     <>
-      <Chat descendingOrderMessages = { descendingOrderMessages }/>
-      <ChatInput />
+      <Chat descendingOrderMessages={descendingOrderMessages} />
+      <ChatInput user={user} clickedUser={clickedUser} getUsersMessages={getUserMessages} getClickedUserMessages={getClickedUserMessages} />
     </>
   )
 }

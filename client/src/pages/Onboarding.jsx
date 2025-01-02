@@ -10,7 +10,7 @@ function Onboarding() {
 
   const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
-  const [formData,setFormData] = useState({
+  const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
     dob_day: "",
@@ -27,7 +27,7 @@ function Onboarding() {
   let navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    
+
     e.preventDefault()
     try {
       const response = await axios.put('http://localhost:8000/user', { formData })
@@ -36,7 +36,7 @@ function Onboarding() {
         navigate('/dashboard')
         console.log("submitted")
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
@@ -47,7 +47,7 @@ function Onboarding() {
 
     setFormData((prevState) => ({
       ...prevState,
-      [name] : value
+      [name]: value
     }))
   }
 
@@ -196,14 +196,14 @@ function Onboarding() {
           <section>
             <label htmlFor="photo">Profile Photo</label>
             <input
-                type="url"
-                name="url"
-                id="url"
-                onChange={handleChange}
-                required={true} />
+              type="url"
+              name="url"
+              id="url"
+              onChange={handleChange}
+              required={true} />
 
             <div className="photo-container">
-              {formData.url && <img src = {formData.url} alt = "profile pic preview"/>}
+              {formData.url && <img src={formData.url} alt="profile pic preview" />}
             </div>
           </section>
         </form>
