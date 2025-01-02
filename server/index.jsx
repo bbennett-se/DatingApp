@@ -15,6 +15,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.listen(PORT, () => console.log('Server running on Port ' + PORT))
+
 app.get('/', (req, res) => {
     res.json('Hello!')
 })
@@ -99,7 +101,23 @@ app.get('/users', async (req, res) => {
 })
 
 
-app.listen(PORT, () => console.log('Server running on Port ' + PORT))
+app.get('/user', async (req,res) => {   
+    const client = new MongoClient(URI)
+    const userId = req.query.userId
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = { user_id: userId }
+        const user = await users.findOne(query)
+        res.send(user)
+    } finally {
+        await client.close()
+    }
+
+})
 
 
 app.put('/user', async (req,res) => {
