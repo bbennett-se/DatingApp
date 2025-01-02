@@ -11,18 +11,19 @@ function Dashboard() {
   const [user, setUser] = useState(null)
 
   const userId = cookies.UserId
-  const getUser = async() => {
+  
+  const getUser = async () => {
 
     try {
-    const response = await axios.get('http://localhost:8000/user', {
-      params: { userId }
-    })
+      const response = await axios.get('http://localhost:8000/user', {
+        params: { userId }
+      })
 
-    setUser(response.data)
+      setUser(response.data)
 
-  } catch(err) {
-    console.log(err)
-  }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -56,21 +57,23 @@ function Dashboard() {
     setLastDirection(direction)
   }
   return (
-    <div className="dashboard">
-      <ChatContainer />
+    <>
+    { user && 
+      <div className="dashboard">
+      <ChatContainer user = { user }/>
       <div className="swipe-container">
         <div className="card-container">
 
           {characters.map((character) =>
-            <TinderCard 
-            className='swipe' 
-            key={character.name} 
-            onSwipe={(dir) => swiped(dir, character.name)} 
-            onCardLeftScreen={() => outOfFrame(character.name)}>
+            <TinderCard
+              className='swipe'
+              key={character.name}
+              onSwipe={(dir) => swiped(dir, character.name)}
+              onCardLeftScreen={() => outOfFrame(character.name)}>
 
-              <div 
-              style={{ backgroundImage: 'url(' + character.url + ')' }} 
-              className='card'>
+              <div
+                style={{ backgroundImage: 'url(' + character.url + ')' }}
+                className='card'>
 
                 <h3>{character.name}</h3>
               </div>
@@ -78,12 +81,15 @@ function Dashboard() {
             </TinderCard>
           )}
 
-          <div className = 'swipe-info'>
-            {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
+          <div className='swipe-info'>
+            {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+    
+  }
+  </>
   )
 }
 

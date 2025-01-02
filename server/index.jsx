@@ -69,12 +69,14 @@ app.post('/login', async(req,res) => {
 
         const user = await users.findOne({ email })
 
+        console.log(user)
+
         const correctPassword = await bcrypt.compare(password, user.hashed_password)
 
         if(user && correctPassword) {
             const token = jwt.sign(user, email, {expiresIn: 60 * 24})
 
-            res.status(201).json({ token, userId: user_id})
+            res.status(201).json({ token, userId: user.user_id })
         }
 
         res.status(400).send('Invalid Credentials')
