@@ -8,10 +8,12 @@ import ChatContainer from '../components/ChatContainer'
 function Dashboard() {
 
   const [cookies, setCookie, removeCookie] = useCookies(['user'])
+  const [genderedUsers, setGenderedUsers] = useState(null)
   const [user, setUser] = useState(null)
+  const [lastDirection, setLastDirection] = useState()
 
   const userId = cookies.UserId
-  
+
   const getUser = async () => {
 
     try {
@@ -26,31 +28,24 @@ function Dashboard() {
     }
   }
 
+  const getGenderedUsers = async () => {
+    try {
+    const response = await axios.get('http://localhost:8000/gendered-users', {
+      params: { gender: user?.gender_interest }
+    })
+
+    setGenderedUsers(response.data)
+  } catch(err) {
+    console.log(err)
+  }
+  }
+
   useEffect(() => {
     getUser()
+    getGenderedUsers()
   }, [])
 
-  const db = [
-    {
-      name: 'Richard Hendricks',
-      url: 'https://imgur.com/oPj4A8u.jpg'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: 'https://imgur.com/oPj4A8u.jpg'
-    },
-    {
-      name: 'Monica Hall',
-      url: 'https://imgur.com/oPj4A8u.jpg'
-    },
-    {
-      name: 'Jared Dunn',
-      url: 'https://imgur.com/oPj4A8u.jpg'
-    }
-  ]
 
-  const characters = db
-  const [lastDirection, setLastDirection] = useState()
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing:' + nameToDelete)
@@ -64,18 +59,18 @@ function Dashboard() {
       <div className="swipe-container">
         <div className="card-container">
 
-          {characters.map((character) =>
+          {genderedUsers?.map((genderedUser) =>
             <TinderCard
               className='swipe'
-              key={character.name}
-              onSwipe={(dir) => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}>
+              key={genderedUser.first_name}
+              onSwipe={(dir) => swiped(dir, genderedUser.first_name)}
+              onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}>
 
               <div
-                style={{ backgroundImage: 'url(' + character.url + ')' }}
+                style={{ backgroundImage: 'url(' + genderedUser.url + ')' }}
                 className='card'>
 
-                <h3>{character.name}</h3>
+                <h3>{genderedUser.name}</h3>
               </div>
 
             </TinderCard>
