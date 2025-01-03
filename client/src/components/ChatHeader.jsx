@@ -1,15 +1,20 @@
 import React from 'react'
 import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 
 function ChatHeader({ user }) {
 
+  let navigate = useNavigate()
+  
   const[cookies,setCookie, removeCookie] = useCookies(['user'])
 
   const logout = () => {
-    removeCookie('UserId', cookies,UserId)
+    removeCookie('UserId', cookies.UserId)
     removeCookie('AuthToken', cookies.AuthToken)
 
-    window.location.reload()
+    navigate('/')
+    console.log("logged out")
+    //window.location.reload()
   }
   
   return (
