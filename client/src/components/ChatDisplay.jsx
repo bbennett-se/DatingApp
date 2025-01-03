@@ -59,8 +59,6 @@ const ChatDisplay = ({ user , clickedUser }) => {
 
     const descendingOrderMessages = messages?.sort((a,b) => a.timestamp.localeCompare(b.timestamp))
 
-    console.log(descendingOrderMessages)
-
     return (
         <>
         <Chat descendingOrderMessages={descendingOrderMessages}/>

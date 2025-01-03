@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import ChatContainer from '../components/ChatContainer'
 
+//Renders the user Dashboard
 function Dashboard() {
 
   const [user, setUser] = useState(null)
@@ -15,22 +16,28 @@ function Dashboard() {
   const userId = cookies.UserId
 
 
+  //Gets user info of UserId stored in cookies from the database
   const getUser = async () => {
       try {
           const response = await axios.get('http://localhost:8000/user', {
               params: {userId}
           })
           setUser(response.data)
+
       } catch (error) {
           console.log(error)
       }
   }
+
+  //Gets a list of users that match the user's gender interest
   const getGenderedUsers = async () => {
       try {
           const response = await axios.get('http://localhost:8000/gendered-users', {
               params: {gender: user?.gender_interest}
           })
+
           setGenderedUsers(response.data)
+
       } catch (error) {
           console.log(error)
       }
@@ -38,7 +45,6 @@ function Dashboard() {
 
   useEffect(() => {
       getUser()
-
   }, [])
 
   useEffect(() => {
@@ -53,7 +59,9 @@ function Dashboard() {
               userId,
               matchedUserId
           })
+
           getUser()
+
       } catch (err) {
           console.log(err)
       }
@@ -75,8 +83,6 @@ function Dashboard() {
 
   const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
 
-
-  console.log('filteredGenderedUsers ', filteredGenderedUsers)
   return (
       <>
           {user &&
@@ -91,9 +97,8 @@ function Dashboard() {
                               key={genderedUser.user_id}
                               onSwipe={(dir) => swiped(dir, genderedUser.user_id)}
                               onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}>
-                              <div
-                                  style={{backgroundImage: "url(" + genderedUser.url + ")"}}
-                                  className="card">
+                              <div className="card"
+                                  style={{backgroundImage: "url(" + genderedUser.url + ")"}}>
                                   <h3>{genderedUser.first_name}</h3>
                               </div>
                           </TinderCard>

@@ -4,7 +4,7 @@ import AuthModal from '../components/AuthModal'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
-
+// Renders the Home Screen
 function Home() {
 
   const [showModal, setShowModal] = useState(false)
@@ -13,8 +13,10 @@ function Home() {
 
   const authToken = cookies.authToken
 
+
+  //Handles Sign out (Might be redundant. possibly remove later)
   const handleClick = () => {
-    if(authToken) {
+    if (authToken) {
       removeCookie('UserId', cookies.UserId)
       removeCookie('AuthToken', cookies.AuthToken)
       window.location.reload()
@@ -29,7 +31,7 @@ function Home() {
     <div className="overlay">
 
       <Nav
-        authToken = { authToken }
+        authToken={authToken}
         minimal={false}
         showModal={showModal}
         setShowModal={setShowModal}
@@ -39,8 +41,7 @@ function Home() {
 
         <h1 className="primary-title">Swipe Right</h1>
 
-        <button
-          className="primary-button"
+        <button className="primary-button"
           onClick={handleClick}>
 
           {authToken ? 'Signout' : 'Create Account'}
