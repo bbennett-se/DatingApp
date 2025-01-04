@@ -4,6 +4,8 @@ import AuthModal from '../components/AuthModal'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
+import clouds from '../images/213455_small.mp4'
+
 // Renders the Home Screen
 function Home() {
 
@@ -28,8 +30,15 @@ function Home() {
 
   return (
 
-    <div className="overlay">
+    <>
+    
 
+    <div className="overlay">
+      <div className = "video-container">
+    <video autoPlay muted loop className = 'video'>
+        <source src={clouds} type='video/mp4'/>
+      </video>
+      </div>
       <Nav
         authToken={authToken}
         minimal={false}
@@ -56,6 +65,7 @@ function Home() {
 
       </div>
     </div>
+    </>
   )
 }
 
