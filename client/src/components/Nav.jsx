@@ -15,7 +15,8 @@ function Nav({authToken, minimal, showModal, setShowModal, setIsSignUp}) {
 
     <nav>
         <div className = "logo-container">
-            <img className = "logo" src = {minimal ? colorLogo : whiteLogo} />
+            {/* <img className = "logo" src = {minimal ? colorLogo : whiteLogo} /> */}
+            <h1 className = "logo">Cloud Nine</h1>
 
         </div>
 

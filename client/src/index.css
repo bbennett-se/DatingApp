@@ -22,7 +22,7 @@ h2 {
   color: #fff;
   text-transform: uppercase;
   font-size: 15px;
-  background: linear-gradient(45deg, #ff0f27, #68BEFF);
+  background: linear-gradient(45deg, #e4e4e4, #27a1ff);
   padding: 12px 30px;
   border-radius: 30px;
   border: none;
@@ -47,7 +47,7 @@ h2 {
 }
 
 .primary-button:hover {
-  background: linear-gradient(260deg, #ff0f27, #68BEFF);
+  background: linear-gradient(260deg, #e4e4e4, #68BEFF);
 }
 
 /*-----Nav-----*/
@@ -59,7 +59,7 @@ nav {
 }
 
 nav .nav-button {
-  color: #FF4558;
+  color: #27a1ff;
   background-color: rgb(255,255,255);
   font-size: 20px;
   padding: 10px 20px;
@@ -70,16 +70,17 @@ nav .nav-button {
 
 nav .nav-button:disabled {
   background-color: rgb(189,180,180);
-  color: rgb(153, 41, 52)
+  color: #1d79c0
 }
 
 nav .logo-container {
   width:170px;
-  margin: 15px;
 }
 
 nav .logo-container .logo {
   width: 100%;
+  color: #fff;
+  /* margin: 15px; */
 }
 
 /*-----HomePage-----*/
@@ -213,15 +214,17 @@ nav .logo-container .logo {
 }
 
 .onboarding form .multiple-input-container input[type = "radio"]:checked + label{
-  border: solid 2px #ff0f27;
+  border: solid 2px #27a1ff;
 }
 
 .onboarding form input[type="submit"]:hover {
-  background-color: rgb(235,235,235)
+  background-color: #4d8ec1;
+  border: solid 2px #437fad;
 }
 
 .onboarding form input[type="submit"]:active {
-  background-color: rgb(226,115,115)
+  background-color: #68BEFF;
+  border: none;
 }
 
 .onboarding form .photo-container img{
@@ -286,7 +289,7 @@ nav .logo-container .logo {
 }
 
 .chat-container .chat-container-header {
-  background: linear-gradient(45deg, #ff0f27, #68BEFF);
+  background: linear-gradient(45deg, #e4e4e4, #27a1ff);
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -296,7 +299,7 @@ nav .logo-container .logo {
 .chat-container .option {
   border: none;
   background-color: #fff;
-  border-bottom: solid 4px #ff0f27;
+  border-bottom: solid 4px #27a1ff;
   font-size: 20px;
   margin: 2px;
   padding: 10px;
