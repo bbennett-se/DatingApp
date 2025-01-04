@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Nav from '../components/Nav'
 
-
+//renders the onboarding screen
 function Onboarding() {
 
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
+  //defines the structure of the formData that will be updated and passed to the database
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
@@ -26,8 +27,8 @@ function Onboarding() {
 
   let navigate = useNavigate()
 
+  //submits inputted user data to the database and updates the user's account data
   const handleSubmit = async (e) => {
-
     e.preventDefault()
     try {
       const response = await axios.put('http://localhost:8000/user', { formData })
@@ -41,6 +42,7 @@ function Onboarding() {
     }
   }
 
+  //handles updating the value of checkboxes in formData
   const handleChange = (e) => {
     const value = e.target.type == 'checkbox' ? e.target.checked : e.target.value
     const name = e.target.name
@@ -50,8 +52,7 @@ function Onboarding() {
       [name]: value
     }))
   }
-
-  console.log(formData)
+  
   return (
     <>
       <Nav

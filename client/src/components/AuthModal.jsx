@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
+//renders the auth modal on the homepage
 function AuthModal({ setShowModal, isSignUp }) {
 
     const [email, setEmail] = useState(null)
@@ -16,10 +17,12 @@ function AuthModal({ setShowModal, isSignUp }) {
 
     console.log(email, password, confirmPassword)
 
+    //hides the modal when clicked
     const handleClick = () => {
         setShowModal(false)
     }
 
+    //submits the user info to the database if it is valid
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -31,12 +34,12 @@ function AuthModal({ setShowModal, isSignUp }) {
 
             const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
 
-            //setCookie('Email', response.data.email)
             setCookie('UserId', response.data.userId)
             setCookie('AuthToken', response.data.token)
 
             const success = response.status === 201
 
+            //determines which page to send the user to depending on if they are signed up or not
             if (success && isSignUp) navigate('/onboarding')
             if (success && !isSignUp) navigate('/dashboard')
 

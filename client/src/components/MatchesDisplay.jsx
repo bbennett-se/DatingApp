@@ -3,14 +3,17 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 
+//renders component that displays matches for the user
 function MatchesDisplay({ matches, setClickedUser }) {
 
   const [matchedProfiles, setMatchedProfiles] = useState(null)
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
+  //gets the user_id of all matches passed from the chat container 
   const matchedUserIds = matches.map(({ user_id }) => user_id)
   const userId = cookies.UserId
 
+  //gets all profiles that a user has sent a like to 
   const getMatches = async () => {
     try {
       const response = await axios.get('http://localhost:8000/users', {
@@ -27,6 +30,7 @@ function MatchesDisplay({ matches, setClickedUser }) {
     getMatches();
   }, [matches])
 
+  //filters for profiles that have also liked the user(matches) 
   const filteredMatchedProfiles = matchedProfiles?.filter(
     (matchedProfile) =>
       matchedProfile.matches.filter((profile) => profile.user_id == userId)

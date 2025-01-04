@@ -1,5 +1,6 @@
 import React from 'react'
 
+//renders the mapped messages passed to it by chatDisplay
 function Chat({ descendingOrderMessages }) {
   return (
     <div className='chat-display'>

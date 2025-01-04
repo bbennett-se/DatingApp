@@ -3,6 +3,7 @@ import MatchesDisplay from './MatchesDisplay'
 import ChatDisplay from './ChatDisplay'
 import { useState } from 'react'
 
+//renders the container for matchDispay and chatDisplay
 const ChatContainer = ({ user }) => {
     const [ clickedUser, setClickedUser ] = useState(null)
 

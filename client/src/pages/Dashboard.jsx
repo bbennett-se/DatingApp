@@ -16,7 +16,7 @@ function Dashboard() {
   const userId = cookies.UserId
 
 
-  //Gets user info of UserId stored in cookies from the database
+  //gets user info of UserId stored in cookies from the database
   const getUser = async () => {
       try {
           const response = await axios.get('http://localhost:8000/user', {
@@ -29,7 +29,7 @@ function Dashboard() {
       }
   }
 
-  //Gets a list of users that match the user's gender interest
+  //gets a list of users that match the user's gender interest
   const getGenderedUsers = async () => {
       try {
           const response = await axios.get('http://localhost:8000/gendered-users', {
@@ -53,6 +53,7 @@ function Dashboard() {
       }
   }, [user])
 
+  //adds to the user's match array if they swipe right on another user
   const updateMatches = async (matchedUserId) => {
       try {
           await axios.put('http://localhost:8000/addmatch', {
@@ -68,6 +69,7 @@ function Dashboard() {
   }
 
 
+  //detects which way a user swiped on a user's profile card; passes info to updateMatches
   const swiped = (direction, swipedUserId) => {
       if (direction === 'right') {
           updateMatches(swipedUserId)
@@ -75,12 +77,15 @@ function Dashboard() {
       setLastDirection(direction)
   }
 
+  //logs when the user has swiped on another user's profile card
   const outOfFrame = (name) => {
       console.log(name + ' left the screen!')
   }
 
+  //gets the user_ids of profiles that the user has already matched with
   const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
 
+  //filters the contents of the user's card queue based on users that they have not matched with yet
   const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
 
   return (
