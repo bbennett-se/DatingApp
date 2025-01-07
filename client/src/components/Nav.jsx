@@ -1,6 +1,4 @@
 import React from 'react'
-import whiteLogo from '../images/Wordmark-R-white-RGB-new.png'
-import colorLogo from '../images/Wordmark-R-gradient-RGB.png'
 
 //renders the navbar on the homepage
 function Nav({authToken, minimal, showModal, setShowModal, setIsSignUp}) {

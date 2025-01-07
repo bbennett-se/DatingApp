@@ -20,7 +20,7 @@ function Onboarding() {
     show_gender: false,
     gender_identity: "man",
     gender_interest: "woman",
-    url: "",
+    images: "",
     about: "",
     matches: []
   })
@@ -47,10 +47,14 @@ function Onboarding() {
     const value = e.target.type == 'checkbox' ? e.target.checked : e.target.value
     const name = e.target.name
 
+    
+
     setFormData((prevState) => ({
       ...prevState,
       [name]: value
     }))
+
+    console.log(formData.images)
   }
   
   return (
@@ -197,14 +201,15 @@ function Onboarding() {
           <section>
             <label htmlFor="photo">Profile Photo</label>
             <input
-              type="url"
-              name="url"
-              id="url"
+              type="file"
+              accept = ".jpg, .jpeg, .png"
+              name="images"
+              id="images"
               onChange={handleChange}
               required={true} />
 
             <div className="photo-container">
-              {formData.url && <img src={formData.url} alt="profile pic preview" />}
+              {formData.images && <img src={formData.images} alt="profile pic preview" />}
             </div>
           </section>
         </form>
