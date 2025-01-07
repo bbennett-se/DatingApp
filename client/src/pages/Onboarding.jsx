@@ -25,6 +25,8 @@ function Onboarding() {
     matches: []
   })
 
+  const[ preview, setPreview ] = useState(null)
+
   let navigate = useNavigate()
 
   //submits inputted user data to the database and updates the user's account data
@@ -44,6 +46,10 @@ function Onboarding() {
 
   //handles updating the value of checkboxes in formData
   const handleChange = (e) => {
+
+    if(e.target.type == 'file') {
+      readPicture(e)
+    }
     const value = e.target.type == 'checkbox' ? e.target.checked : e.target.value
     const name = e.target.name
 
@@ -54,8 +60,24 @@ function Onboarding() {
       [name]: value
     }))
 
+    
+  }
+
+  function readPicture(e) {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+
+    reader.onload = function() {
+      setPreview(reader.result)
+    }
+  
+    reader.readAsDataURL(file) 
+
     console.log(formData.images)
   }
+
+
+
   
   return (
     <>
@@ -209,7 +231,7 @@ function Onboarding() {
               required={true} />
 
             <div className="photo-container">
-              {formData.images && <img src={formData.images} alt="profile pic preview" />}
+              {formData.images && <img src={preview} alt="profile pic preview" />}
             </div>
           </section>
         </form>
