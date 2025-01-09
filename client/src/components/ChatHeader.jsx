@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,6 +9,7 @@ function ChatHeader({ user }) {
   let navigate = useNavigate()
   
   const[cookies,setCookie, removeCookie] = useCookies(['user'])
+  const[pfp, setPfp] = useState(null)
 
   //removes UserId and AuthToken cookies from the browser and redirects the user back to the homepage
   const logout = () => {
@@ -17,12 +19,23 @@ function ChatHeader({ user }) {
     navigate('/')
     console.log("logged out")
   }
+
+  function readPicture(e) {
+    const file = user.images
+    const reader = new FileReader()
+
+    reader.onload = function() {
+      setPfp(reader.result)
+    }
+  
+    reader.readAsDataURL(file) 
+  }
   
   return (
     <div className = 'chat-container-header'>
         <div className = 'profile'>
             <div className = 'img-container'>
-                <img src = {user.images} alt = {"photo of " + user.first_name}/>
+                <img src = {pfp} alt = {"photo of " + user.first_name}/>
             </div>
             <h3>{user.first_name}</h3>
         </div>

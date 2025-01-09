@@ -8,6 +8,7 @@ import Nav from '../components/Nav'
 //renders the onboarding screen
 function Onboarding() {
 
+
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
   //defines the structure of the formData that will be updated and passed to the database
@@ -31,6 +32,10 @@ function Onboarding() {
 
   //submits inputted user data to the database and updates the user's account data
   const handleSubmit = async (e) => {
+
+    //TODO: Set up so that images are stored in cloudinary
+    //TODO: Research a way to retrieve cloudinary image urls within the database
+    
     e.preventDefault()
     try {
       const response = await axios.put('http://localhost:8000/user', { formData })
@@ -50,6 +55,8 @@ function Onboarding() {
     if(e.target.type == 'file') {
       readPicture(e)
     }
+
+
     const value = e.target.type == 'checkbox' ? e.target.checked : e.target.value
     const name = e.target.name
 
@@ -72,8 +79,6 @@ function Onboarding() {
     }
   
     reader.readAsDataURL(file) 
-
-    console.log(formData.images)
   }
 
 
