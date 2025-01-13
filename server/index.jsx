@@ -186,6 +186,7 @@ app.put('/user', upload.single('image'), async (req, res) => {
     const formData = req.body.formData
 
     const result = cloudinary.uploader.upload(req.file.path)
+    console.log(result)
 
     try {
         await client.connect()
@@ -203,7 +204,7 @@ app.put('/user', upload.single('image'), async (req, res) => {
                 show_gender: formData.show_gender,
                 gender_identity: formData.gender_identity,
                 gender_interest: formData.gender_interest,
-                images: result.secure.url,
+                images: result.secure_url,
                 about: formData.about,
                 matches: formData.matches
             },

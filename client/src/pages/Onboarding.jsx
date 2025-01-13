@@ -9,6 +9,8 @@ import Nav from '../components/Nav'
 function Onboarding() {
 
 
+  const[ upload, setUpload ] = useState(null)
+  const[ preview, setPreview ] = useState(null)
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
   //defines the structure of the formData that will be updated and passed to the database
@@ -26,7 +28,10 @@ function Onboarding() {
     matches: []
   })
 
-  const[ preview, setPreview ] = useState(null)
+ 
+
+
+  
 
   let navigate = useNavigate()
 
@@ -35,10 +40,15 @@ function Onboarding() {
 
     //TODO: Set up so that images are stored in cloudinary
     //TODO: Research a way to retrieve cloudinary image urls within the database
-    
+    const data = new FormData()
+
+    data.set('image', upload)
+
+    console.log(upload)
     e.preventDefault()
     try {
-      const response = await axios.put('http://localhost:8000/user', { formData })
+
+      const response = await axios.put('http://localhost:8000/user', { formData, data })
       const success = response.status === 200
       if (success) {
         navigate('/dashboard')
@@ -53,6 +63,7 @@ function Onboarding() {
   const handleChange = (e) => {
 
     if(e.target.type == 'file') {
+      setUpload(e.target.files[0])
       readPicture(e)
     }
 
