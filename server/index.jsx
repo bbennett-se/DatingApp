@@ -5,8 +5,11 @@ const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
-require('dotenv').config()
 
+const cloudinary = require('./cloudinary')
+const upload = require('./multer')
+
+require('dotenv').config()
 const uri = process.env.URI
 
 const app = express()
@@ -178,9 +181,11 @@ app.get('/gendered-users', async (req, res) => {
 })
 
 // Update a User in the Database
-app.put('/user', async (req, res) => {
+app.put('/user', upload.single('image'), async (req, res) => {
     const client = new MongoClient(uri)
     const formData = req.body.formData
+
+    const result = cloudinary.uploader.upload(req.file.path)
 
     try {
         await client.connect()
@@ -198,7 +203,7 @@ app.put('/user', async (req, res) => {
                 show_gender: formData.show_gender,
                 gender_identity: formData.gender_identity,
                 gender_interest: formData.gender_interest,
-                images: formData.images,
+                images: result.secure.url,
                 about: formData.about,
                 matches: formData.matches
             },
