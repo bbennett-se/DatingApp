@@ -6,4 +6,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-module.exports = cloudinary;
+  async function handleUpload(file) {
+    const res = await cloudinary.uploader.upload(file, {
+        resource_type: 'auto'
+    })
+
+    return res
+}
+
+module.exports = handleUpload;

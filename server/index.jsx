@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const cloudinary = require('./cloudinary')
+const handleUpload = require('./cloudinary').handleUpload
 const upload = require('./multer')
 
 require('dotenv').config()
@@ -185,7 +185,10 @@ app.put('/user', upload.single('image'), async (req, res) => {
     const client = new MongoClient(uri)
     const formData = req.body.formData
 
-    const result = cloudinary.uploader.upload(req.file.path)
+    console.log("request recieved")
+    console.log(formData.image)
+
+    const result = handleUpload(req.file.path)
     console.log(result)
 
     try {

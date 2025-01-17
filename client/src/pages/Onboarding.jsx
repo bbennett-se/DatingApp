@@ -23,7 +23,6 @@ function Onboarding() {
     show_gender: false,
     gender_identity: "man",
     gender_interest: "woman",
-    images: "",
     about: "",
     matches: []
   })
@@ -40,15 +39,18 @@ function Onboarding() {
 
     //TODO: Set up so that images are stored in cloudinary
     //TODO: Research a way to retrieve cloudinary image urls within the database
-    const data = new FormData()
 
-    data.set('image', upload)
+    formData.set('image', upload)
+
+    console.log('reached handleSubmit')
 
     console.log(upload)
     e.preventDefault()
     try {
 
-      const response = await axios.put('http://localhost:8000/user', { formData, data })
+      console.log('reached try')
+
+      const response = await axios.put('http://localhost:8000/user', { formData })
       const success = response.status === 200
       if (success) {
         navigate('/dashboard')
