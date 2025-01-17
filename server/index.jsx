@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const handleUpload = require('./cloudinary').handleUpload
-const upload = require('./multer')
+const handleUpload = require('./cloudinary')
+const myUploadMiddleware = require('./multer')
 
 require('dotenv').config()
 const uri = process.env.URI
